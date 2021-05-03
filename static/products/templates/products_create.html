@@ -1,0 +1,33 @@
+{% extends 'products/templates/base.html' %}
+{% load extra_filters %}
+
+{% block title %}PRODUTOS{% endblock title %}PRODUTOS
+
+
+{% block content %}
+<div class="container">
+    {% if form.errors %}
+        <div class="alert alert-warning" role="alert">
+            <p>{{form.errors}}</p>
+        </div>
+    {% endif %}
+  <div class="position-absolute top-50 start-50 translate-middle">
+
+<form method="post">{% csrf_token %}
+    <label for="id_name" class="form-label">Nome:</label>
+          {{ form.name|add_class:'form-control'}}
+
+    <label for="id_price" class="form-label">Preço:</label>
+          {{form.price|add_class:'form-control'}}
+
+    <label for="id_cost" class="form-label">Custo:</label>
+          {{form.cost|add_class:'form-control'}}
+
+    <label for="id_company" class="form-label">Empresa:</label>
+          {{form.company|add_class:'form-control'}}
+    <br>
+    <button type="submit" class="btn btn-light" value="Save">Cadastrar Produto</button>
+    </div>
+</form>
+</div>
+{% endblock content %}

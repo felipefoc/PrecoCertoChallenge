@@ -1,32 +1,51 @@
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{% extends 'base/base.html' %}
+{% load extra_filters %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Sua conta não tem acesso a esta página. Para prosseguir,
-      faça login com uma conta que tenha acesso.</p>
-    {% else %}
-    <p>Faça login para ver esta página.</p>
-    {% endif %}
-{% endif %}
+{% block title %}Login{% endblock %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
+{% block style %}
+form {
+  text-align: center;
+}
+{% endblock style %}
 
-<table>
-  <tr>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-  </tr>
-  <tr>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-  </tr>
-</table>
 
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
 
-</form>
+{% block content %}
+<div class="container">
+  <div class="position-absolute top-50 start-50 translate-middle">
+      {% if form.errors %}
+      <div class="alert alert-warning" role="alert">
+        <p>Seu nome de usuário e senha não coincidem. Por favor, tente novamente.</p>
+      </div>
+      {% endif %}
+      
+      {% if next %}
+          {% if user.is_authenticated %}
+          <div class="alert alert-dark" role="alert">
+          <p>Sua conta não tem acesso a esta página. Para prosseguir,
+            faça login com uma conta que tenha acesso.</p>
+          {% else %}
+          <p>Faça login para ver esta página.</p>
+          </div>
+          {% endif %}
+      {% endif %}
+      
 
+      <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+        <div class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username|add_class:'form-control' }}
+          
+        </div>
+        <div class="mb-3">
+            {{ form.password.label_tag }}
+            {{ form.password|add_class:'form-control' }}
+        </div>
+        <button type="submit" class="btn btn-light">Entrar</button>
+        <input type="hidden" name="next" value="{{ next }}">
+      </form>
+  </div>
+</div>
+{% endblock %}
