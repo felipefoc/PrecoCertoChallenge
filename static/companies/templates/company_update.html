@@ -1,14 +1,14 @@
 {% extends 'base/base.html' %}
 {% load extra_filters %}
 
-{% block title %}Cadastrar empresa{% endblock title %}
+{% block title %}Editar empresa{% endblock title %}
 
 {% block content %}
 <div class="container">
-<h1> Cadastrar nova empresa </h1>
+<h1> Empresa: {{form.name.value|upper}}</h1>
     {% if form.errors %}
         <div class="alert alert-warning" role="alert">
-            <p>Nome e/ou CNPJ já cadastrados.</p>
+            <p>{{form.errors}}</p>
         </div>
     {% endif %}
   <div class="position-absolute top-50 start-50 translate-middle">
@@ -18,7 +18,7 @@
     <label for="id_cnpj" class="form-label">CNPJ:</label>
     {{ form.cnpj|add_attr:"class:form-control, onblur:validarCNPJ(this);" }}
     <br>
-    <button type="submit" class="btn btn-light" value="Save">Cadastrar Empresa</button>
+    <button type="submit" class="btn btn-light" value="Save">Salvar</button>
 </form>
 
 </div>

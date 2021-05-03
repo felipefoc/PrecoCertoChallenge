@@ -6,7 +6,7 @@ from django.views import generic
 from django.views.generic.base import TemplateView
 
 # Create your views here.
-class HomePage(TemplateView):
+class HomePage(LoginRequiredMixin, TemplateView):
     template_name = 'home/templates/teste.html'
 
     def get_context_data(self, **kwargs):

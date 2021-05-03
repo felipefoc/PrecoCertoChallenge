@@ -25,6 +25,10 @@ a {
             <th scope="row">{{company.name}}</th>
             <th scope="row">{{company.cnpj}}</th>
         </tbody>
+        {% empty %}
+        <tbody>        
+            <th colspan="2">Nenhuma empresa cadastrada.</th>
+        </tbody>
         {% endfor %}
     </table>
     <button class="btn btn-primary"><a href="{% url 'company-create' %}">Cadastrar nova empresa</a></button>

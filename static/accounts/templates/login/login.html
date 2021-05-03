@@ -24,8 +24,9 @@ form {
           {% if user.is_authenticated %}
           <div class="alert alert-dark" role="alert">
           <p>Sua conta não tem acesso a esta página. Para prosseguir,
-            faça login com uma conta que tenha acesso.</p>
+            faça login com uma conta que tenha acesso.</p></div>
           {% else %}
+          <div class="alert alert-dark" role="alert">
           <p>Faça login para ver esta página.</p>
           </div>
           {% endif %}
