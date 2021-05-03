@@ -1,4 +1,39 @@
+{% extends 'products/templates/base.html' %}
+{% load extra_filters %}
+
+{% block title %}PRODUTOS{% endblock title %}PRODUTOS
+
+
+{% block content %}
+<div class="container">
+    {% if form.errors %}
+        <div class="alert alert-warning" role="alert">
+            <p>{{form.errors}}</p>
+        </div>
+    {% endif %}
+    <h2>Produto: {{form.name.value|title}}
+  <div class="position-absolute top-50 start-50 translate-middle">
+
 <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
+    <label for="id_name" class="form-label">Nome:</label>
+          {{ form.name|add_class:'form-control'}}
+
+    <label for="id_price" class="form-label">Preço:</label>
+    <input name="price" id="id_price" class="form-control" onkeypress="$(this).mask('###0.00', {reverse: true});">
+      
+    <label for="id_cost" class="form-label">Custo:</label>
+    <input name="cost" id="id_cost" class="form-control" onkeypress="$(this).mask('###0.00', {reverse: true});">
+
+    <label for="id_company" class="form-label">Empresa:</label>
+          {{form.company|add_class:'form-control'}}
+    <br>
+    <button type="submit" class="btn btn-light" value="Save">Atualizar Produto</button>
+    </div>
 </form>
+</div>
+
+<script>
+</script>
+{% endblock content %}
+
+

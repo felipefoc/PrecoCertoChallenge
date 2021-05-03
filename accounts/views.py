@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import View
@@ -7,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 
-class SignUpView(generic.CreateView, View):
+class SignUpView(generic.CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
     template_name = 'accounts/templates/registration/signup.html'

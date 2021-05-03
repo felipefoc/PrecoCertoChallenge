@@ -1,4 +1,10 @@
+{% extends 'products/templates/base.html' %}
+
+{% block content %}
+<div class="container">
 <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
+    <h2>Tem certeza que deseja excluir o produto "{{ object }}"?</h2>
+    <button class="btn btn-warning" type="submit" value="Confirm">Confirmar</button>
 </form>
+</div>
+{% endblock content %}

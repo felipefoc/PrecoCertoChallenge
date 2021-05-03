@@ -1,8 +1,50 @@
-<h1>Products</h1>
-<ul>
-{% for product in object_list %}
-    <li>{{product.id}} - {{ product.name }} - {{ product.price }} - {{ product.cost }} - {{ product.company }}</li>
-{% empty %}
-    <li>No articles yet.</li>
-{% endfor %}
-</ul>
+{% extends 'base/base.html' %}
+
+{% block style %}
+a {
+    color: white;
+    text-decoration: None;
+}
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+<h1>Produtos</h1>
+  <table class="table table-striped">
+  {% if request.user.is_superuser %}
+  <button type="button" class="btn btn-primary"><a href="{% url 'product-create' %}">Adicionar novo produto</a></button>
+  {% endif %}
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Preço</th>
+        <th>Custo</th>
+        <th>Empresa</th>
+        {% if request.user.is_superuser %}
+        <td>Ações</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for product in object_list %}
+      <tr>
+        <td>{{product.id}}</td>
+        <td>R$ {{ product.price }}</td>
+        <td>R$ {{ product.cost }}</td>
+        <td>{{ product.company }}</td>
+        {% if request.user.is_superuser %}
+        <td>
+            <a href="{% url 'product-delete' pk=product.id %}"><button type="button" class="btn btn-danger">Remover</button></a>
+            <a href="{% url 'product-update' pk=product.id %}"><button type="button" class="btn btn-info">Editar</button></a>
+        </td>
+        {% endif %}
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="4">Nenhum produto cadastrado</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

@@ -9,14 +9,21 @@ class ProductCreate(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('home')
 
-
 class ProductList(ListView):
     model = Products
     paginate_by = 10
     template_name = 'products/templates/products_list.html'
 
     def get_queryset(self):
-        return Products.objects.filter(company=self.request.user.company)
+        if self.request.user.is_superuser:
+            return Products.objects.all()
+        else:
+            return Products.objects.filter(company=self.request.user.company)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class'] = 'product-list'
+        return context
 
 class ProductUpdate(UpdateView):
     model = Products

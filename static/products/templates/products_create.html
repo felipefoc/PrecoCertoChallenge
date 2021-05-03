@@ -18,10 +18,10 @@
           {{ form.name|add_class:'form-control'}}
 
     <label for="id_price" class="form-label">Preço:</label>
-          {{form.price|add_class:'form-control'}}
-
+    <input name="price" id="id_price" class="form-control" onkeypress="$(this).mask('###0.00', {reverse: true});">
+      
     <label for="id_cost" class="form-label">Custo:</label>
-          {{form.cost|add_class:'form-control'}}
+    <input name="cost" id="id_cost" class="form-control" onkeypress="$(this).mask('###0.00', {reverse: true});">
 
     <label for="id_company" class="form-label">Empresa:</label>
           {{form.company|add_class:'form-control'}}
@@ -30,4 +30,7 @@
     </div>
 </form>
 </div>
+
+<script>
+</script>
 {% endblock content %}
