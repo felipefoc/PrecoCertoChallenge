@@ -2,6 +2,9 @@ from django.contrib.auth.views import LogoutView
 from accounts.views import Login
 from django.urls import path, include
 from django.urls.base import reverse_lazy
+from django.views.defaults import (permission_denied,
+                                   page_not_found,
+                                   server_error)
 
 
 urlpatterns = [
@@ -12,3 +15,9 @@ urlpatterns = [
     path('Products/', include('products.urls')),
     path('', include('home.urls')),
 ]
+
+urlpatterns += [
+    path('403/', permission_denied),
+    path('404/', page_not_found),
+    path('500/', server_error)
+    ]

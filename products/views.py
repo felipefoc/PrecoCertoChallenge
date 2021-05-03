@@ -1,13 +1,15 @@
 from products.models import Products
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.urls import reverse_lazy
+from challenge1.mixins import AdminStaffRequiredMixin
 
 # Create your views here.
-class ProductCreate(CreateView):
+class ProductCreate(AdminStaffRequiredMixin, CreateView):
     model = Products
     template_name = 'products/templates/products_create.html'
     fields = '__all__'
     success_url = reverse_lazy('home')
+
 
 class ProductList(ListView):
     model = Products
@@ -25,7 +27,7 @@ class ProductList(ListView):
         context['class'] = 'product-list'
         return context
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(AdminStaffRequiredMixin, UpdateView):
     model = Products
     fields = ('name' , 'price', 'cost', 'company')
     ordering = 'id'
@@ -33,7 +35,7 @@ class ProductUpdate(UpdateView):
     template_name = 'products/templates/products_update.html'
     success_url = reverse_lazy('product-list')
 
-class ProductDelete(DeleteView):
+class ProductDelete(AdminStaffRequiredMixin, DeleteView):
     model = Products
     template_name = 'products/templates/products_delete.html'
     def get_success_url(self):
