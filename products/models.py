@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Products(models.Model):
+    class Meta:
+        ordering = ['id']
+
     name = models.CharField(max_length=255)
     price = models.FloatField()
     cost = models.FloatField()

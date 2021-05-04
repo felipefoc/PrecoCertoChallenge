@@ -12,7 +12,7 @@ class CompanyCreate(AdminStaffRequiredMixin, CreateView):
     fields = '__all__'
     success_url = reverse_lazy('company-list')
     
-class CompanyList(LoginRequiredMixin, ListView):
+class CompanyList(AdminStaffRequiredMixin, ListView):
     model = Company
     template_name = 'companies/templates/company_list.html'
     paginate_by = 10
@@ -26,13 +26,17 @@ class CompanyList(LoginRequiredMixin, ListView):
         context['class'] = 'company-list'
         return context
 
-class CompanyDelete(DeleteView):
+class CompanyDelete(AdminStaffRequiredMixin, DeleteView):
     model = Company
-    template_name = 'companies/templates/company_delete.html'
+ 
+    
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse_lazy('company-list')
 
-class CompanyUpdate(UpdateView):
+class CompanyUpdate(AdminStaffRequiredMixin, UpdateView):
     model = Company
     fields = ('name' , 'cnpj')
     ordering = 'id'

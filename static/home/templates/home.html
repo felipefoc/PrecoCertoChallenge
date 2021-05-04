@@ -6,9 +6,11 @@
 <div class="container">
     <div class="position-absolute top-50 start-50 translate-middle">
         <h1> Bem-vindo(a) {{request.user.first_name}} </h1>
-
-
-
+        {% if request.user.is_superuser %}
+        <h5> Você é administrador do sistema </h5>
+        {% else %}
+        <h5> Sua empresa é {{request.user.company}} </h5>
+        {% endif %}
     </div>
 </div>
 

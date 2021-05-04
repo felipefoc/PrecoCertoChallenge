@@ -13,8 +13,9 @@ class ProductCreate(AdminStaffRequiredMixin, CreateView):
 
 class ProductList(ListView):
     model = Products
-    paginate_by = 10
+    paginate_by = 5
     template_name = 'products/templates/products_list.html'
+
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -30,7 +31,6 @@ class ProductList(ListView):
 class ProductUpdate(AdminStaffRequiredMixin, UpdateView):
     model = Products
     fields = ('name' , 'price', 'cost', 'company')
-    ordering = 'id'
     pk_url_kwarg = 'pk'
     template_name = 'products/templates/products_update.html'
     success_url = reverse_lazy('product-list')
