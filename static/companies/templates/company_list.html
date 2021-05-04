@@ -32,6 +32,7 @@ a {
         {% endfor %}
     </table>
     <button class="btn btn-primary"><a href="{% url 'company-create' %}">Cadastrar nova empresa</a></button>
+    {% include "base/pagination.html" %}
 </div>
 </div>
 
