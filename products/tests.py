@@ -50,10 +50,10 @@ class CompanyTest(TestCase):
         self.company_list = reverse('company-list')
         self.signup = reverse('signup')
         self.create_product = reverse('product-create')
-        self.delete_company = reverse('company-delete', args={
-            '1': self.company.id
+        self.delete_product = reverse('product-delete', kwargs={
+            'pk': 1
         })
-        self.update_company = reverse('company-update', kwargs={
+        self.update_product = reverse('product-update', kwargs={
             'pk': 1
         })
 
@@ -61,3 +61,30 @@ class CompanyTest(TestCase):
         self.client.post(self.login, self.admin_data)
         res = self.client.post(self.create_product, self.product_data)
         self.assertEqual(res.status_code, 200)
+
+    def test_create_product_as_user(self):
+        self.client.post(self.login, self.data)
+        res = self.client.post(self.create_product, self.product_data)
+        self.assertEqual(res.status_code, 403)
+
+    def test_update_product_as_superuser(self):
+        self.client.post(self.login, self.admin_data)
+        res = self.client.post(self.update_product, {
+            'name': 'Updated Product',
+            'price': 849.99,
+            'cost': 147.99,
+            'company': 'TEST COMPANY LTDA',            
+        })
+        self.product.refresh_from_db()
+        self.assertEqual(res.status_code, 200)
+
+    def test_update_product_as_user(self):
+        self.client.post(self.login, self.data)
+        res = self.client.post(self.update_product, {
+            'name': 'Updated Product',
+            'price': 849.99,
+            'cost': 147.99,
+            'company': 'TEST COMPANY LTDA',            
+        })
+        self.product.refresh_from_db()
+        self.assertEqual(res.status_code, 403)

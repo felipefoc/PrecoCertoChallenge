@@ -8,16 +8,14 @@ from django.views.defaults import (permission_denied,
 
 
 urlpatterns = [
-    path('login/', Login.as_view(), name='login'),
+    path('', Login.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page=reverse_lazy('login')), name='logout'),
     path('Accounts/', include('accounts.urls')),
     path('Companies/', include('companies.urls')),
     path('Products/', include('products.urls')),
-    path('', include('home.urls')),
+    path('Home/', include('home.urls')),
 ]
 
 urlpatterns += [
     path('403/', permission_denied),
-    path('404/', page_not_found),
-    path('500/', server_error)
     ]

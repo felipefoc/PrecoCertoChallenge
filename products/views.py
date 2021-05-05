@@ -35,6 +35,7 @@ class ProductUpdate(AdminStaffRequiredMixin, UpdateView):
     template_name = 'products/templates/products_update.html'
     success_url = reverse_lazy('product-list')
 
+
 class ProductDelete(AdminStaffRequiredMixin, DeleteView):
     model = Products
     template_name = 'products/templates/products_delete.html'

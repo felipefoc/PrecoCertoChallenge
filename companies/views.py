@@ -28,8 +28,7 @@ class CompanyList(AdminStaffRequiredMixin, ListView):
 
 class CompanyDelete(AdminStaffRequiredMixin, DeleteView):
     model = Company
- 
-    
+     
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
 
