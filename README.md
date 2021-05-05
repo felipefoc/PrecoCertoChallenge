@@ -14,3 +14,17 @@ Desejável:
 
 Implementação de testes
 Aplicação "dockerizada"
+
+
+
+### How to run Dockerfile
+
+docker build --pull --rm -f "Dockerfile" -t precocertochallenge:latest "."
+
+# and
+
+docker run --rm -d  -p 8000:8000/tcp precocertochallenge:latest
+
+## To run tests
+
+python manage.py test
